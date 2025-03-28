@@ -1,0 +1,31 @@
+{% block content %}
+  <div class="container">
+    <h1>Ваш профиль</h1>
+
+    <ul class="profile-info">
+      <li><strong>Имя пользователя:</strong> {{ user.username }}</li>
+      <li><strong>Электронная почта:</strong> {{ user.email }}</li>
+      <li><strong>Телефон:</strong> {{ user.phone_number }}</li>
+      <li><strong>Возраст:</strong> {{ user.age }} лет</li>
+      <li><strong>Пол:</strong> {{ user.get_gender_display }}</li>
+      <li><strong>Степень:</strong> {{ user.degree }}</li>
+      <li><strong>Должность:</strong> {{ user.position }}</li>
+      <li><strong>Зарплата:</strong> {{ user.salary }}</li>
+      <li><strong>Опыт работы:</strong> {{ user.experience_years }}</li>
+      <li><strong>Дата рождения:</strong> {{ user.date_of_birth }}</li>
+      <li><strong>Адрес:</strong> {{ user.address }}</li>
+    </ul>
+
+
+    {% if user.diploma %}
+      <p><strong>Диплом:</strong> <a href="{{ user.diploma.url }}" target="_blank">Скачать диплом</a></p>
+    {% else %}
+      <p><strong>Диплом:</strong> Нет файла диплома.</p>
+    {% endif %}
+  </div>
+{% endblock %}
+
+<form action="{% url 'users:logout' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Выйти из аккаунта</button>
+</form>

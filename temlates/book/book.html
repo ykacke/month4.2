@@ -1,4 +1,4 @@
-{{ load static }}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,27 +8,31 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="shortcut icon"
           href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9RaqWhNrT68sVwQFo4ZAs1VRsUZImppmaqg&s">
-    <link rel="stylesheet" href="{{% static'css/book.css' %}}">
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
 </head>
 <body>
 
 
-{{% include 'components/header.html' %}}
+{% include 'components/header.html' %}
 
 <!-- Контент с карточками -->
 <div class="container mt-4 content">
     <div class="row justify-content-center">
 
 
-        {% for i in quer %}
+        {% for book in books %}
         <!-- Пример карточки книги -->
         <div class="col-md-4 mb-4">
             <div class="card" style="width: 100%;">
-                <img src="{{ i.image.url }}" class="card-img-top" alt="Обложка книги">
+                {% if book.image %}
+                <img src="{{ book.image.url }}" class="card-img-top" alt="Обложка книги">
+                {% else %}
+                <img src="{% static 'images/default_book_image.jpg' %}" class="card-img-top" alt="Обложка книги">
+                {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{ i.title }}</h5>
-                    <p class="card-text">{{ i.created_at }}</p>
-                    <a href="book_detail.html" class="btn btn-primary">Подробнее</a>
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">{{ book.created_at }}</p>
+                    <a href="{% url 'book_detail' pk=book.id %}" class="btn btn-primary">Подробнее</a>
                 </div>
             </div>
         </div>
@@ -37,7 +41,7 @@
     </div>
 </div>
 
-{{% include 'components/footer.html' %}}
+{% include 'components/footer.html' %}
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Book
+from books.models import  Book
 
 def all_category_book(request):
     if request.method == 'GET':

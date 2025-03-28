@@ -1,7 +1,7 @@
-from datetime import datetime
-from django.forms import models
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+import datetime
+from . import models
 from .models import Book
 
 
@@ -17,41 +17,32 @@ def book_detail(request, id):
         )
 
 
-
-def book_list(request):
-    if request.method == 'GET':
-        quer = models.Book.objects.all()
+def books_list(request):
+    if request.method == "GET":
+        books = Book.objects.filter(genre='comedy')
         return render(
             request,
             template_name='book.html',
             context={
-                'quer': quer,
+                'books': books,
             }
         )
 
 
-
-
-
-
 def about_me(request):
     if request.method == "GET":
-        return HttpResponse("<h1> Имя: Леон Кеннеди"
-                            "Возраст: 21 </h1>")
+        return HttpResponse("меня зовут адэми, мне 20 лет")
 
 
-def about_animal(request):
-    if request.method == "GET":
-        return HttpResponse("<h1> У меня есть домашнее животное. Кошка. ее зовут Кэтти. "
-                            "Увидеть ее можно по ссылке image/ </h1>")
-
-
-def image(request):
+def favorite_animal(request):
     if request.method == "GET":
         return HttpResponse(
-            "<img src='https://images.freeimages.com/images/large-previews/714/gato-en-un-teclado-cat-on-a-keyboard-1241528.jpg'>")
+            "Моё любимое животное кошка.Я люблю кошек за их грациозность и красоту,и ещё за их ловкость и быстроту.Кошки очень любят спать и играть.Кошки с мягкой шерстью,с красивыми и блестящими глазами и мощными лапами."
+
+            "<''>")
 
 
-def time(request):
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return HttpResponse(f"Текущее время: {current_time}")
+def system_time(request):
+    if request.method == "GET":
+        now = datetime.datetime.now()
+        return HttpResponse(f'текущее время {now}')

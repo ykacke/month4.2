@@ -1,0 +1,27 @@
+{% load static %}
+{% include 'components/header.html' %}
+
+<link rel="stylesheet" href="{% static 'css/book.css' %}">
+<link rel="stylesheet" href="{% static 'css/book_detail.css' %}">
+
+<div class="container mt-4 content">
+    <div class="row justify-content-center">
+        {% for i in kids_clothes %}
+        <!-- Пример карточки книги -->
+        <div class="col-md-4 mb-4">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.name }}</h5>
+                    <p class="card-text">{{ i.price }}</p>
+                    <a href="/books/{{ book.id }}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+<div class="buttons">
+            <button><a href="{% url 'children_books'%}">Children</a></button>
+            <button><a href="{% url 'teen_book'%}">Teen</a></button>
+</div>
+
+{% include 'components/footer.html' %}
